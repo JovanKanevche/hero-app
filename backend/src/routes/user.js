@@ -40,4 +40,12 @@ router.get('/user/logout', (req, res) => {
   res.send(userId)
 })
 
+router.get('/user/:userId', (req, res) => {
+  UserModel.findById(userId)
+    .then(user => {
+      res.send(user)
+    })
+    .catch(err => res.status(500).send(err))
+})
+
 module.exports = router
