@@ -9,19 +9,19 @@ router.get('/user/register', (req, res) => {
 
   bcrypt
     .hash(password, 10)
-    .then(hashed => {
-      const model = new UserModel({
+    .then(hashedPassword => {
+      const userModel = new UserModel({
         name,
         username,
         email,
-        password: hashed
+        password: hashedPassword
       })
 
-      model
+      userModel
         .save()
-        .then(doc => {
-          if (!doc || doc.length === 0) return res.status(500).send(doc)
-          res.status(201).send(doc)
+        .then(user => {
+          if (!user || user.length === 0) return res.status(500).send(user)
+          res.status(201).send(user)
         })
         .catch(err => res.status(500).json(err))
     })
