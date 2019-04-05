@@ -11,6 +11,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "express": "^4.16.4",
     "mongoose": "^5.4.22"
   },
