@@ -32,7 +32,16 @@ router.get('/user/register', (req, res) => {
 
 router.get('/user/login', (req, res) => {
   const { username, password } = req.query
-  res.send(`${username} ${password}`)
+  UserModel.find({ $or: [{ username }, { email: username }] }).then(user => {
+    if (user < 1) return res.status(401).json({ message: 'Auth failed' })
+    bcrypt.compare(password, user[0].password, (err, result) => {
+      if (err) {
+        return res.status(401).json({ message: 'Auth failed' })
+      }
+      if (result) return res.status(201).json({ message: 'Auth successful' })
+      return res.status(401).json({ message: 'Auth failed' })
+    })
+  })
 })
 
 router.get('/user/logout', (req, res) => {
