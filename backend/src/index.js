@@ -2,7 +2,7 @@ const express = require('express')
 
 const app = express()
 const port = 3000
-const userRoute = require('./user')
+const userRoute = require('./routes/user')
 
 app.use(userRoute)
 app.get('/', (req, res) => res.send('It works'))
