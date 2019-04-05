@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Input from '../components/Input'
 
 function RegisterScreen() {
   const [values, setValues] = useState({
@@ -21,44 +22,39 @@ function RegisterScreen() {
   }
 
   return (
-    <div>
-      <form>
-        <label>
-          HELLO
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={onChangeValues('name')}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={onChangeValues('username')}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="password"
-            value={password}
-            onChange={onChangeValues('password')}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={onChangeValues('email')}
-          />
-        </label>
-        <label>
-          <button onClick={onSubmit} />
-        </label>
+    <div style={{ maxWidth: '400px' }}>
+      <form style={{ display: 'flex', flexDirection: 'column' }}>
+        <h1 style={{ alignSelf: 'center' }}>REGISTER</h1>
+        <Input
+          type="text"
+          placeholder="Enter full name"
+          name="name"
+          value={name}
+          onChange={onChangeValues('name')}
+        />
+        <Input
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          value={username}
+          onChange={onChangeValues('username')}
+        />
+        <Input
+          type="text"
+          name="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={onChangeValues('password')}
+        />
+
+        <Input
+          type="text"
+          name="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={onChangeValues('email')}
+        />
+        <button onClick={onSubmit} name="HELLO" />
       </form>
     </div>
   )
