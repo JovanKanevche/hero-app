@@ -4,12 +4,16 @@
   "description": "Simple backend for the hero app.",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "start-watch": "nodemon src/index.js"
   },
   "author": "Jovan Kanevche",
   "license": "MIT",
   "private": false,
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
