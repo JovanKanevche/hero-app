@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { get } from 'axios'
+import { Redirect, Link } from 'react-router-dom'
 
-function LoginScreen() {
+function LoginScreen({ auth, setAuth }) {
   const [values, setValues] = useState({
     username: '',
     password: ''
@@ -19,12 +20,17 @@ function LoginScreen() {
 
   const onSubmit = () =>
     get('/user/login', { params: values })
-      .then(e => {
-        console.log(e.data)
-      })
+      .then(e =>
+        setAuth({
+          logged: e.data.logged,
+          token: e.data.token
+        })
+      )
       .catch(e => alert(e.message))
 
   const onRegister = () => console.log('/register')
+
+  if (auth === true) return <Redirect to="/dashboard" />
 
   return (
     <div style={styles.container}>
@@ -51,7 +57,9 @@ function LoginScreen() {
             onChange={onChangeValues('password')}
           />
           <Button onClick={onSubmit}>Login</Button>
-          <Button onClick={onRegister}>Register</Button>
+          <Link to="/register">
+            <Button>Register</Button>
+          </Link>
         </form>
       </div>
     </div>

@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { get } from 'axios'
+import { Redirect, Link } from 'react-router-dom'
 
-function RegisterScreen() {
+function RegisterScreen({ auth }) {
   const [values, setValues] = useState({
     name: '',
     username: '',
@@ -27,6 +28,8 @@ function RegisterScreen() {
       .catch(e => alert(e.message))
 
   const onLogin = () => console.log('/login')
+
+  if (auth === true) return <Redirect to="/dashboard" />
 
   return (
     <div style={styles.container}>
@@ -68,7 +71,9 @@ function RegisterScreen() {
             onChange={onChangeValues('email')}
           />
           <Button onClick={onSubmit}>Register</Button>
-          <Button onClick={onLogin}>Login</Button>
+          <Link to="/">
+            <Button>Login</Button>
+          </Link>
         </form>
       </div>
     </div>
