@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Button = props => <button style={styles.button} {...props} />
+const Button = props => (
+  <button type="button" style={styles.button} {...props} />
+)
 
 const styles = {
   button: {
