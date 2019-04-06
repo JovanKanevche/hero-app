@@ -29,22 +29,14 @@ function RegisterScreen() {
   const onLogin = () => console.log('/login')
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignSelf: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%'
-      }}
-    >
+    <div style={styles.container}>
       <div
         style={{
           maxWidth: '400px',
           borderColor: 'black'
         }}
       >
-        <form style={{ display: 'flex', flexDirection: 'column' }}>
+        <form style={styles.form}>
           <h1 style={{ alignSelf: 'center' }}>REGISTER</h1>
           <Input
             type="text"
@@ -81,6 +73,17 @@ function RegisterScreen() {
       </div>
     </div>
   )
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%'
+  },
+  form: { display: 'flex', flexDirection: 'column' }
 }
 
 export default RegisterScreen
