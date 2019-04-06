@@ -3,7 +3,7 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import { get } from 'axios'
 
-function RegisterScreen(onCreated) {
+function RegisterScreen() {
   const [values, setValues] = useState({
     name: '',
     username: '',
@@ -19,13 +19,14 @@ function RegisterScreen(onCreated) {
 
   const { name, username, password, email } = values
 
-  const onSubmit = () => {
+  const onSubmit = () =>
     get('/user/register', { params: values })
       .then(e => {
-        onCreated(e.data)
+        console.log(e.data)
       })
       .catch(e => alert(e.message))
-  }
+
+  const onLogin = () => console.log('/login')
 
   return (
     <div
@@ -60,7 +61,7 @@ function RegisterScreen(onCreated) {
             onChange={onChangeValues('username')}
           />
           <Input
-            type="text"
+            type="password"
             name="password"
             placeholder="Enter password"
             value={password}
@@ -75,6 +76,7 @@ function RegisterScreen(onCreated) {
             onChange={onChangeValues('email')}
           />
           <Button onClick={onSubmit}>Register</Button>
+          <Button onClick={onLogin}>Login</Button>
         </form>
       </div>
     </div>
