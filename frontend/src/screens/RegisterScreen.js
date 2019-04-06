@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
+import { get } from 'axios'
 
-function RegisterScreen() {
+function RegisterScreen(onCreated) {
   const [values, setValues] = useState({
     name: '',
     username: '',
@@ -19,7 +20,11 @@ function RegisterScreen() {
   const { name, username, password, email } = values
 
   const onSubmit = () => {
-    console.log(values)
+    get('/user/register', { params: values })
+      .then(e => {
+        onCreated(e.data)
+      })
+      .catch(e => alert(e.message))
   }
 
   return (
