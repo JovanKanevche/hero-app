@@ -4,7 +4,7 @@ import Button from '../components/Button'
 import { get } from 'axios'
 import { Redirect, Link } from 'react-router-dom'
 
-function RegisterScreen({ auth }) {
+function RegisterScreen({ auth, setAuth }) {
   const [values, setValues] = useState({
     name: '',
     username: '',
@@ -22,14 +22,22 @@ function RegisterScreen({ auth }) {
 
   const onSubmit = () =>
     get('/user/register', { params: values })
-      .then(e => {
-        console.log(e.data)
+      .then(() => {
+        get('/user/login', {
+          params: {
+            username,
+            password
+          }
+        }).then(e => {
+          setAuth({
+            token: e.data.token,
+            isAuth: true
+          })
+        })
       })
       .catch(e => alert(e.message))
 
-  const onLogin = () => console.log('/login')
-
-  if (auth === true) return <Redirect to="/dashboard" />
+  if (auth.isAuth === true) return <Redirect to="/dashboard" />
 
   return (
     <div style={styles.container}>

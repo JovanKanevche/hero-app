@@ -22,15 +22,13 @@ function LoginScreen({ auth, setAuth }) {
     get('/user/login', { params: values })
       .then(e =>
         setAuth({
-          logged: e.data.logged,
+          isAuth: true,
           token: e.data.token
         })
       )
       .catch(e => alert(e.message))
 
-  const onRegister = () => console.log('/register')
-
-  if (auth === true) return <Redirect to="/dashboard" />
+  if (auth.isAuth === true) return <Redirect to="/dashboard" />
 
   return (
     <div style={styles.container}>
