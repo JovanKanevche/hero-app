@@ -3,8 +3,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
-const JWT_KEY = 'HELAFSOJGNPAONCPOSMPASJGPOEINGO'
+const { JWT_KEY } = require('../../constants')
 
 router.get('/user', (req, res) => res.send('This is the /user route'))
 
@@ -42,6 +41,7 @@ router.get('/user/login', (req, res) => {
       if (err) {
         return res.status(401).json({ message: 'Auth failed' })
       }
+
       if (result) {
         const token = jwt.sign(
           { username: user[0].username, userId: user[0]._id },
@@ -54,6 +54,7 @@ router.get('/user/login', (req, res) => {
           .status(201)
           .json({ message: 'Auth successful', token, id: user[0]._id })
       }
+
       return res.status(401).json({ message: 'Auth failed' })
     })
   })
