@@ -8,13 +8,7 @@ const SOCKET_URL = 'ws://localhost:3002/'
 class DashboardScreen extends Component {
   socket
   state = {
-    messages: [
-      {
-        name: 'Jovan Kanevche',
-        username: 'Jovan',
-        message: 'IFjoias jasj psaoj dlsap kpdsak saop kdpo sakpo kdsap aoks'
-      }
-    ],
+    messages: [],
     currentMessage: ''
   }
 
