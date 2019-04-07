@@ -1,7 +1,14 @@
 import React from 'react'
 
 const Button = props => (
-  <button type="button" style={styles.button} {...props} />
+  <button
+    type="button"
+    {...props}
+    style={{
+      ...styles.button,
+      ...props.style
+    }}
+  />
 )
 
 const styles = {
