@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import Input from '../components/Input'
 import Button from '../components/Button'
+import Message from '../components/Message'
 
 const SOCKET_URL = 'ws://localhost:3002/'
 
 class DashboardScreen extends Component {
   socket
   state = {
-    messages: [],
+    messages: [
+      {
+        name: 'Jovan Kanevche',
+        username: 'Jovan',
+        message: 'IFjoias jasj psaoj dlsap kpdsak saop kdpo sakpo kdsap aoks'
+      }
+    ],
     currentMessage: ''
   }
 
@@ -38,7 +45,7 @@ class DashboardScreen extends Component {
     return (
       <div style={{ maxWidth: '400px' }}>
         <h1>DASHBOARD</h1>
-        {messages}
+        {messages.map(Message)}
 
         <div>
           <Input
