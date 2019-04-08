@@ -13,6 +13,7 @@ const Button = props => (
 
 const styles = {
   button: {
+    width: '100%',
     backgroundColor: '#4CAF50',
     border: 'none',
     color: 'white',

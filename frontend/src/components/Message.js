@@ -13,7 +13,8 @@ const Message = ({ name, username, message }) => (
 const styles = {
   container: {
     border: 'solid',
-    borderWidth: '2px',
+    borderWidth: '1px',
+    borderBottomWidth: '0px',
     borderColor: 'black',
     padding: 8
   },

@@ -8,7 +8,8 @@ import DashboardScreen from './screens/DashboardScreen'
 function App() {
   const [auth, setAuth] = useState({
     token: '',
-    isAuth: false
+    isAuth: false,
+    id: ''
   })
 
   return (
@@ -35,4 +36,5 @@ function App() {
     </BrowserRouter>
   )
 }
+
 export default App

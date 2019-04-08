@@ -4,6 +4,34 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWT_KEY } = require('../../constants')
+const { broadcast } = require('../utils/websocketsUtils')
+const WebSocket = require('ws')
+
+const wss = new WebSocket.Server({ port: 3002 })
+
+wss.on('connection', ws => {
+  const broadcastWS = broadcast(wss)
+  ws.on('message', msg => {
+    const { token, message } = JSON.parse(msg)
+    try {
+      const { userId, username } = jwt.verify(token, JWT_KEY)
+      UserModel.findById(userId).then(user =>
+        broadcastWS(
+          JSON.stringify({
+            username,
+            name: user.name,
+            message
+          })
+        )
+      )
+    } catch (e) {
+      ws.send({
+        error: 'User not authenticated'
+      })
+      ws.close()
+    }
+  })
+})
 
 router.get('/user', (req, res) => res.send('This is the /user route'))
 

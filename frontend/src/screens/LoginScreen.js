@@ -23,7 +23,8 @@ function LoginScreen({ auth, setAuth }) {
       .then(e =>
         setAuth({
           isAuth: true,
-          token: e.data.token
+          token: e.data.token,
+          id: e.data.id
         })
       )
       .catch(e => alert(e.message))
@@ -54,9 +55,11 @@ function LoginScreen({ auth, setAuth }) {
             value={password}
             onChange={onChangeValues('password')}
           />
-          <Button onClick={onSubmit}>Login</Button>
+          <Button style={{ width: '100%' }} onClick={onSubmit}>
+            Login
+          </Button>
           <Link to="/register">
-            <Button>Register</Button>
+            <Button style={{ width: '100%' }}>Register</Button>
           </Link>
         </form>
       </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Message from '../components/Message'
@@ -19,8 +20,12 @@ class DashboardScreen extends Component {
 
   componentDidMount() {
     this.socket = new WebSocket(SOCKET_URL)
-    this.socket.onmessage = messages =>
-      this.setMessages([...this.state.messages, messages.data])
+    this.socket.onmessage = message =>
+      this.setMessages([...this.state.messages, JSON.parse(message.data)])
+  }
+
+  componentWillUnmount() {
+    this.socket.close()
   }
 
   sendMessage = ({ token, message, username }) => {
@@ -35,31 +40,54 @@ class DashboardScreen extends Component {
 
   render() {
     const { messages, currentMessage } = this.state
+    const { auth } = this.props
+
+    if (auth.isAuth === false) return <Redirect to="/" />
 
     return (
-      <div style={{ maxWidth: '400px' }}>
-        <h1>DASHBOARD</h1>
-        {messages.map(Message)}
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <div style={{ maxWidth: '400px' }}>
+          <h1>DASHBOARD</h1>
+          {messages.map((e, index) => (
+            <Message {...e} key={index} />
+          ))}
 
-        <div>
-          <Input
-            placeholder="your message"
-            onChange={e => {
-              this.setState({
-                currentMessage: e.target.value
-              })
-            }}
-          />
-          <Button
-            style={{ width: '100%' }}
-            onClick={() => {
-              this.sendMessage({
-                message: currentMessage
-              })
+          <div
+            style={{
+              border: 'solid',
+              borderWidth: 0,
+              borderTopWidth: 1,
+              borderColor: 'black'
             }}
           >
-            Send
-          </Button>
+            <Input
+              placeholder="your message"
+              onChange={e => {
+                this.setState({
+                  currentMessage: e.target.value
+                })
+              }}
+            />
+            <Button
+              style={{ width: '100%' }}
+              onClick={() => {
+                this.sendMessage({
+                  token: auth.token,
+                  id: auth.id,
+                  message: currentMessage
+                })
+              }}
+            >
+              Send
+            </Button>
+          </div>
         </div>
       </div>
     )

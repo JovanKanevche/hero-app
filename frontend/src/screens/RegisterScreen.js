@@ -31,7 +31,8 @@ function RegisterScreen({ auth, setAuth }) {
         }).then(e => {
           setAuth({
             token: e.data.token,
-            isAuth: true
+            isAuth: true,
+            id: e.data.id
           })
         })
       })
